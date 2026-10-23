@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#090b12">
+<meta name="description" content="CLIM PAY GLOBAL — demonstração de carteira digital.">
+<link rel="manifest" href="manifest.json">
+<title>CLIM PAY GLOBAL</title>
+<style>
+:root{--bg:#080a10;--panel:#111521;--panel2:#171d2b;--gold:#e8bd58;--blue:#5aa9ff;--white:#f6f7fb;--muted:#9aa4b6;--line:#293144;--green:#56d6a0;--red:#ff7b87}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top right,#182844 0,#080a10 38%);color:var(--white);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;min-height:100vh}
+button,input,select{font:inherit}button{cursor:pointer}
+.wrap{max-width:520px;margin:auto;min-height:100vh;padding:20px 16px 94px}
+.brand{display:flex;align-items:center;gap:12px;margin:8px 0 24px}.logo{width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,var(--gold),#fff0b3);color:#11131a;display:grid;place-items:center;font-weight:950;font-size:17px;box-shadow:0 8px 28px #e8bd5833}
+.brand h1{font-size:17px;letter-spacing:1px;margin:0}.brand p{font-size:10px;letter-spacing:2px;color:var(--gold);margin:4px 0 0}
+.card{background:linear-gradient(145deg,#171e2d,#10141f);border:1px solid var(--line);border-radius:22px;padding:19px;margin:14px 0;box-shadow:0 12px 32px #0003}
+.eyebrow{font-size:11px;letter-spacing:1.3px;color:var(--muted);text-transform:uppercase}.balance{font-size:34px;font-weight:800;margin:8px 0}.balance small{font-size:14px;color:var(--gold)}.muted{color:var(--muted);font-size:13px}.topline{display:flex;justify-content:space-between;align-items:center;gap:10px}.badge{font-size:10px;background:#392f19;color:#ffdc87;border:1px solid #6c5525;padding:6px 9px;border-radius:99px;white-space:nowrap}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:18px 0}.action{border:1px solid var(--line);border-radius:16px;background:#111725;color:var(--white);padding:13px 4px;font-size:11px}.action span{display:block;font-size:21px;margin-bottom:6px}
+.section-title{font-size:16px;margin:22px 2px 10px}.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}.row:last-child{border-bottom:0}.txicon{width:39px;height:39px;border-radius:13px;background:#202b40;display:grid;place-items:center;font-size:18px;flex-shrink:0}.txleft{display:flex;align-items:center;gap:11px;min-width:0}.txname{font-size:13px;font-weight:650}.txsub{font-size:11px;color:var(--muted);margin-top:3px}.amount{font-size:13px;font-weight:750;white-space:nowrap}.positive{color:var(--green)}.negative{color:#ff9aa3}
+.nav{position:fixed;bottom:0;left:0;right:0;background:#0b0e17f2;backdrop-filter:blur(16px);border-top:1px solid var(--line);display:flex;justify-content:center;z-index:5}.navinner{width:100%;max-width:520px;display:flex;justify-content:space-around;padding:9px 4px calc(9px + env(safe-area-inset-bottom))}.nav button{background:none;border:0;color:var(--muted);font-size:10px;min-width:58px}.nav button span{display:block;font-size:19px;margin-bottom:3px}.nav button.active{color:var(--gold)}
+.screen{display:none}.screen.active{display:block}
+input,select{width:100%;background:#0b101b;border:1px solid #303a4e;color:var(--white);padding:13px;border-radius:12px;margin:6px 0 12px;outline:none}label{font-size:12px;color:#c6cede}.primary{width:100%;border:0;border-radius:13px;padding:13px 15px;background:linear-gradient(100deg,var(--gold),#f4d98d);font-weight:800;color:#10131a;margin-top:5px}.secondary{border:1px solid #46536c;border-radius:12px;background:#131a28;color:var(--white);padding:11px 13px}.formnote{font-size:11px;color:var(--muted);line-height:1.5}.pillrow{display:flex;gap:8px;flex-wrap:wrap}.pill{border:1px solid var(--line);padding:9px 12px;border-radius:12px;background:#111725;font-size:12px}.currency{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line)}.currency:last-child{border:0}.bigcard{border-radius:20px;padding:20px;background:linear-gradient(125deg,#102a4a,#0d1321 56%,#5b461e);border:1px solid #a88b4b55;min-height:160px}.bigcard .chip{width:35px;height:25px;border-radius:6px;background:linear-gradient(135deg,#d6c28c,#fff0bb);margin:22px 0}.bigcard .number{letter-spacing:3px;font-size:16px}.hidden{display:none!important}
+.loginbox{max-width:420px;margin:10vh auto}.loginbox .brand{justify-content:center}.loginbox h2{text-align:center}.loginbox .muted{text-align:center}
+.toast{position:fixed;left:16px;right:16px;bottom:82px;max-width:488px;margin:auto;background:#172238;border:1px solid #3c506f;border-radius:14px;padding:13px 16px;display:none;z-index:10;font-size:13px}
+@media(min-width:600px){.wrap{padding-top:28px}.balance{font-size:39px}}
+</style>
+</head>
+<body>
+<div id="login" class="wrap loginbox">
+  <div class="brand"><div class="logo">CP</div><div><h1>CLIM PAY GLOBAL</h1><p>POWERED BY NØIIR</p></div></div>
+  <div class="card">
+    <div class="eyebrow">A sua carteira digital</div><h2>Bem-vindo</h2>
+    <p class="muted">Entre no ambiente de demonstração para explorar a carteira.</p>
+    <label for="loginPhone">Número de telefone</label><input id="loginPhone" inputmode="tel" placeholder="+244 9XX XXX XXX">
+    <label for="loginPin">PIN de demonstração (4 dígitos)</label><input id="loginPin" type="password" inputmode="numeric" maxlength="4" placeholder="••••">
+    <button class="primary" onclick="loginDemo()">Entrar na demonstração</button>
+    <p class="formnote">Não use um PIN bancário real. Este acesso é apenas local e demonstrativo; não envia SMS nem verifica a sua identidade.</p>
+  </div>
+</div>
+
+<div id="app" class="wrap hidden">
+  <header class="brand"><div class="logo">CP</div><div><h1>CLIM PAY GLOBAL</h1><p>POWERED BY NØIIR</p></div><button class="secondary" style="margin-left:auto;padding:8px 10px" onclick="logout()">Sair</button></header>
+  <section id="home" class="screen active">
+    <div class="topline"><div><div class="eyebrow">Olá, <span id="helloName">Utilizador</span> 👋</div><div class="muted">Aqui está o resumo da sua carteira</div></div><span class="badge">MODO DEMO</span></div>
+    <div class="card"><div class="topline"><span class="eyebrow">Saldo de demonstração</span><button class="secondary" onclick="toggleBalance()">◉</button></div><div class="balance" id="balance">125.000 <small>AOA</small></div><div class="topline"><span class="muted">Saldo fictício, sem valor real</span><span style="color:var(--green);font-size:12px">● Proteção demo</span></div></div>
+    <div class="grid">
+      <button class="action" onclick="showScreen('transfer')"><span>↗</span>Transferir</button>
+      <button class="action" onclick="showScreen('deposit')"><span>＋</span>Depositar</button>
+      <button class="action" onclick="showScreen('withdraw')"><span>⇩</span>Levantar</button>
+      <button class="action" onclick="showScreen('pay')"><span>▣</span>Pagar</button>
+    </div>
+    <div class="section-title">Moedas</div>
+    <div class="card" style="padding:8px 18px">
+      <div class="currency"><div><b>🇦🇴 Kwanza</b><div class="muted">AOA · Moeda principal</div></div><b>AOA</b></div>
+      <div class="currency"><div><b>🇺🇸 Dólar americano</b><div class="muted">USD · Taxa ilustrativa</div></div><b>USD</b></div>
+      <div class="currency"><div><b>🇪🇺 Euro</b><div class="muted">EUR · Taxa ilustrativa</div></div><b>EUR</b></div>
+      <p class="formnote">As taxas de câmbio não estão ligadas ao mercado em tempo real.</p>
+    </div>
+    <div class="section-title">Movimentos recentes <button class="secondary" style="float:right;padding:5px 9px;font-size:11px" onclick="showScreen('history')">Ver todos</button></div>
+    <div class="card" id="recentTx" style="padding:8px 18px"></div>
+  </section>
+
+  <section id="transfer" class="screen">
+    <h2>Transferência</h2><p class="muted">Teste uma transferência simulada nacional ou internacional.</p>
+    <div class="card"><label>Tipo de transferência</label><select id="transferType"><option>Nacional — Angola</option><option>Internacional — demonstração</option></select>
+    <label>Nome do destinatário</label><input id="recipient" placeholder="Nome completo">
+    <label>Telefone ou identificador</label><input id="recipientId" placeholder="+244... ou ID demo">
+    <label>Moeda</label><select id="transferCurrency"><option>AOA</option><option>USD</option><option>EUR</option></select>
+    <label>Valor</label><input id="transferAmount" type="number" min="1" placeholder="Ex.: 5000">
+    <label>Nota (opcional)</label><input id="transferNote" placeholder="Descrição">
+    <button class="primary" onclick="doTransfer()">Simular transferência</button><p class="formnote">Não envia dinheiro e não contacta bancos ou carteiras externas.</p></div>
+  </section>
+
+  <section id="deposit" class="screen">
+    <h2>Depositar</h2><p class="muted">Escolha uma opção para ver como funcionaria.</p>
+    <div class="card"><label>Método de depósito</label><select id="depositMethod"><option>Transferência bancária (futura integração)</option><option>Multicaixa / referência (sujeito a parceiro)</option><option>Carteira digital compatível</option><option>Outro método autorizado</option></select>
+    <label>Valor em AOA</label><input id="depositAmount" type="number" min="1" placeholder="Ex.: 10000">
+    <button class="primary" onclick="doDeposit()">Registar depósito de teste</button><p class="formnote">Nenhum depósito real é iniciado. Os métodos dependem de integração e autorização.</p></div>
+  </section>
+
+  <section id="withdraw" class="screen">
+    <h2>Levantamento</h2><p class="muted">Simule um pedido de levantamento.</p>
+    <div class="card"><label>Destino / método</label><select id="withdrawMethod"><option>Conta bancária (futura integração)</option><option>Agente autorizado (futuro)</option><option>Carteira compatível (futuro)</option></select>
+    <label>Valor em AOA</label><input id="withdrawAmount" type="number" min="1" placeholder="Ex.: 5000">
+    <button class="primary" onclick="doWithdraw()">Simular levantamento</button><p class="formnote">Este formulário não movimenta dinheiro real.</p></div>
+  </section>
+
+  <section id="pay" class="screen">
+    <h2>Pagamentos</h2><p class="muted">Experimente um pagamento fictício.</p>
+    <div class="card"><label>Comerciante / serviço</label><input id="merchant" placeholder="Ex.: Loja Demo">
+    <label>Referência do pagamento</label><input id="payRef" placeholder="Referência de teste">
+    <label>Valor em AOA</label><input id="payAmount" type="number" min="1" placeholder="Ex.: 2500">
+    <button class="primary" onclick="doPayment()">Simular pagamento</button><p class="formnote">Não é possível pagar lojas, serviços ou contas reais nesta versão.</p></div>
+    <div class="section-title">Cartão virtual de demonstração</div><div class="bigcard"><div class="topline"><b>CLIM PAY GLOBAL</b><span>DEMO</span></div><div class="chip"></div><div class="number">•••• &nbsp; •••• &nbsp; •••• &nbsp; 2048</div><div class="topline" style="margin-top:14px;font-size:11px"><span>UTILIZADOR DEMO</span><span>VIRTUAL</span></div></div>
+  </section>
+
+  <section id="history" class="screen"><h2>Histórico</h2><p class="muted">Movimentos guardados neste navegador.</p><div class="card" id="allTx" style="padding:8px 18px"></div><button class="secondary" onclick="clearHistory()">Limpar histórico de demonstração</button></section>
+
+  <section id="profile" class="screen">
+    <h2>Perfil do utilizador</h2>
+    <div class="card"><div class="topline"><div class="logo">👤</div><span class="badge">PERFIL DEMO</span></div>
+    <label>Nome</label><input id="profileName" placeholder="Seu nome">
+    <label>Telefone</label><input id="profilePhone" placeholder="+244...">
+    <label>Email (opcional)</label><input id="profileEmail" type="email" placeholder="email@exemplo.com">
+    <button class="primary" onclick="saveProfile()">Guardar perfil neste dispositivo</button></div>
+    <div class="card"><b>Segurança e privacidade</b><p class="formnote">O PIN de demonstração não é uma autenticação bancária. Não há SMS, biometria, verificação de identidade, servidor seguro ou encriptação de transações nesta versão. Não introduza senhas bancárias nem dados reais de cartões.</p><button class="secondary" onclick="toast('Para operações reais será necessário um backend seguro, auditoria e parceiro financeiro autorizado.')">Requisitos para versão real</button></div>
+    <div class="card"><b>Estado do projeto</b><p class="formnote">Protótipo conceptual. Não está conectado ao BNA, bancos, Multicaixa, Visa, Mastercard ou redes internacionais. Não está autorizado a custodiar ou transferir dinheiro real.</p></div>
+  </section>
+</div>
+
+<div id="nav" class="nav hidden"><div class="navinner">
+<button class="active" data-screen="home" onclick="showScreen('home')"><span>⌂</span>Início</button>
+<button data-screen="history" onclick="showScreen('history')"><span>↻</span>Histórico</button>
+<button data-screen="pay" onclick="showScreen('pay')"><span>▣</span>Cartões</button>
+<button data-screen="profile" onclick="showScreen('profile')"><span>☺</span>Perfil</button>
+</div></div>
+<div id="toast" class="toast"></div>
+<script>
+const START=125000; let balance=START, hiddenBalance=false, tx=[];
+const $=id=>document.getElementById(id);
+function money(v){return Number(v).toLocaleString('pt-PT',{maximumFractionDigits:2})}
+function loginDemo(){let phone=$('loginPhone').value.trim(),pin=$('loginPin').value.trim();if(!phone||!/^\d{4}$/.test(pin)){toast('Introduza o telefone e um PIN de demonstração com 4 dígitos.');return}localStorage.setItem('clim_demo_phone',phone);localStorage.setItem('clim_demo_pin',pin);$('login').classList.add('hidden');$('app').classList.remove('hidden');$('nav').classList.remove('hidden');$('profilePhone').value=phone;loadProfile();render();showScreen('home')}
+function logout(){$('app').classList.add('hidden');$('nav').classList.add('hidden');$('login').classList.remove('hidden');$('loginPin').value=''}
+function showScreen(name){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$(name).classList.add('active');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.screen===name));if(name==='history')render()}
+function toggleBalance(){hiddenBalance=!hiddenBalance;render()}
+function addTx(name,sub,amount,positive=true){tx.unshift({name,sub,amount:Number(amount),positive,date:new Date().toLocaleString('pt-PT')});tx=tx.slice(0,50);localStorage.setItem('clim_demo_tx',JSON.stringify(tx));render()}
+function doTransfer(){let n=$('recipient').value.trim(),id=$('recipientId').value.trim(),a=Number($('transferAmount').value),c=$('transferCurrency').value;if(!n||!id||!a||a<=0){toast('Preencha destinatário, identificador e valor.');return}if(c!=='AOA'){toast('Na demonstração, o saldo disponível é apenas AOA. Escolha AOA para continuar.');return}if(a>balance){toast('Saldo fictício insuficiente.');return}balance-=a;localStorage.setItem('clim_demo_balance',balance);addTx('Transferência para '+n,$('transferType').value+' · '+id,-a,false);$('recipient').value='';$('recipientId').value='';$('transferAmount').value='';toast('Transferência simulada com sucesso. Nenhum dinheiro foi enviado.');showScreen('home')}
+function doDeposit(){let a=Number($('depositAmount').value);if(!a||a<=0){toast('Introduza um valor válido.');return}balance+=a;localStorage.setItem('clim_demo_balance',balance);addTx('Depósito de teste',$('depositMethod').value,a,true);$('depositAmount').value='';toast('Depósito fictício registado. Não entrou dinheiro real.');showScreen('home')}
+function doWithdraw(){let a=Number($('withdrawAmount').value);if(!a||a<=0){toast('Introduza um valor válido.');return}if(a>balance){toast('Saldo fictício insuficiente.');return}balance-=a;localStorage.setItem('clim_demo_balance',balance);addTx('Levantamento simulado',$('withdrawMethod').value,-a,false);$('withdrawAmount').value='';toast('Levantamento simulado. Nenhum dinheiro foi levantado.');showScreen('home')}
+function doPayment(){let n=$('merchant').value.trim(),a=Number($('payAmount').value);if(!n||!a||a<=0){toast('Introduza comerciante e valor válidos.');return}if(a>balance){toast('Saldo fictício insuficiente.');return}balance-=a;localStorage.setItem('clim_demo_balance',balance);addTx('Pagamento: '+n,'Referência: '+($('payRef').value||'DEMO'),-a,false);$('payAmount').value='';toast('Pagamento de demonstração registado. Nenhuma compra real foi feita.');showScreen('home')}
+function txHtml(t){return `<div class="row"><div class="txleft"><div class="txicon">${t.positive?'＋':'↗'}</div><div><div class="txname">${esc(t.name)}</div><div class="txsub">${esc(t.sub)} · ${esc(t.date)}</div></div></div><div class="amount ${t.positive?'positive':'negative'}">${t.positive?'+':'−'} ${money(Math.abs(t.amount))} AOA</div></div>`}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function render(){if(localStorage.getItem('clim_demo_balance'))balance=Number(localStorage.getItem('clim_demo_balance'));try{tx=JSON.parse(localStorage.getItem('clim_demo_tx')||'[]')}catch(e){tx=[]}$('balance').innerHTML=hiddenBalance?'•••••• <small>AOA</small>':money(balance)+' <small>AOA</small>';$('recentTx').innerHTML=tx.length?tx.slice(0,4).map(txHtml).join(''):'<p class="muted">Ainda não existem movimentos. Faça uma simulação para começar.</p>';$('allTx').innerHTML=tx.length?tx.map(txHtml).join(''):'<p class="muted">O histórico está vazio.</p>'}
+function saveProfile(){localStorage.setItem('clim_demo_name',$('profileName').value.trim());localStorage.setItem('clim_demo_email',$('profileEmail').value.trim());localStorage.setItem('clim_demo_phone',$('profilePhone').value.trim());loadProfile();toast('Perfil de demonstração guardado neste dispositivo.')}
+function loadProfile(){let n=localStorage.getItem('clim_demo_name')||'';$('profileName').value=n;$('profileEmail').value=localStorage.getItem('clim_demo_email')||'';$('profilePhone').value=localStorage.getItem('clim_demo_phone')||'';$('helloName').textContent=n||'Utilizador'}
+function clearHistory(){if(confirm('Limpar o histórico de demonstração?')){tx=[];localStorage.removeItem('clim_demo_tx');render();toast('Histórico de demonstração limpo.')}}
+let toastTimer;function toast(s){$('toast').textContent=s;$('toast').style.display='block';clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').style.display='none',3500)}
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('service-worker.js').catch(()=>{}));
+</script>
+</body></html>

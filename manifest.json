@@ -1,0 +1,13 @@
+{
+  "background_color": "#ffffff",
+  "description": "CLIM PAY GLOBAL — demonstração de carteira digital.",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "bexboycllimario-stack.github",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "bexboycllimario-stack.github",
+  "start_url": "/",
+  "theme_color": "#090b12",
+  "id": "0021"
+}

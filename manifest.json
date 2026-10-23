@@ -1,13 +1,12 @@
 {
-  "background_color": "#ffffff",
-  "description": "CLIM PAY GLOBAL — demonstração de carteira digital.",
-  "dir": "ltr",
+  "name": "CLIM PAY GLOBAL",
+  "short_name": "CLIM PAY",
+  "id": "/Clim-pay-global/",
+  "description": "Carteira digital CLIM PAY GLOBAL — demonstração de pagamentos e transferências.",
+  "start_url": "/Clim-pay-global/",
+  "scope": "/Clim-pay-global/",
   "display": "standalone",
-  "name": "bexboycllimario-stack.github",
-  "orientation": "any",
-  "scope": "/",
-  "short_name": "bexboycllimario-stack.github",
-  "start_url": "/",
-  "theme_color": "#090b12",
-  "id": "0021"
+  "orientation": "portrait",
+  "background_color": "#FFFFFF",
+  "theme_color": "#090B12"
 }

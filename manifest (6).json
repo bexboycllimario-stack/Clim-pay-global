@@ -1,0 +1,13 @@
+{
+  "background_color": "#ffffff",
+  "description": "CLIM PAY GLOBAL — demonstração de carteira digital.",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "Clim pay",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "Clim pay global powerdbynøiir",
+  "start_url": "/",
+  "theme_color": "#090b12",
+  "id": "Clim-pay-global-powerd-by-noiir"
+}
